@@ -2,27 +2,33 @@
 
 import unsuffledMatches from './matches.json' assert {type: 'json' };
 
-const suffleArray = array =>{
-    for(let i=array.length-1; i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
-
+const {suffleArray, printMatches, printIndiPoints, updateIndiPoints, colorCodeMatch, printTeamPoints} = require('./func');
 
 let matches = suffleArray(Object.values(unsuffledMatches));
 let tabs = document.querySelectorAll('.tab');
-let mainContent = document.querySelector('.main-content');
 let tabsContainer = document.querySelector('.tabs-container');
+let mainContent = document.querySelector('.main-content');
+let currentMatch = 1;
 
-let indiPoints =[{ name : 'Hari', matchesPlayed : 0, wins :0 , points:0 },
-{ name : 'Krishna', matchesPlayed : 0, wins :0 , points:0 },
-{ name : 'Venkat', matchesPlayed : 0, wins :0 , points:0 },
-{ name : 'Vicky', matchesPlayed : 0, wins :0 , points:0 },
-{ name : 'Karthi', matchesPlayed : 0, wins :0 , points:0 }];
+let matchResults ={};
+
+let teamsReport = {
+    'Hari-Krishna': {matchesPlayed : 0, lost: 0, won : 0 },
+'Hari-Venkat': {matchesPlayed : 0, lost: 0, won : 0 },
+'Hari-Vicky': {matchesPlayed : 0, lost: 0, won : 0 },
+'Hari-Karthi': {matchesPlayed : 0, lost: 0, won : 0 },
+'Krishna-Venkat':{matchesPlayed : 0, lost: 0, won : 0 },
+'Krishna-Vicky':{matchesPlayed : 0, lost: 0, won : 0 },
+'Krishna-karthi':{matchesPlayed : 0, lost: 0, won : 0 },
+'Venkat-Vicky':{matchesPlayed : 0, lost: 0, won : 0 },
+'Venkat-Karthi':{matchesPlayed : 0, lost: 0, won : 0 },
+'Vicky-Karthi':{matchesPlayed : 0, lost: 0, won : 0 }};
+
+let indiPoints ={'Hari' : { name : 'Hari', matchesPlayed : 0, wins :0 , points:0 },
+'Krishna':{ name : 'Krishna', matchesPlayed : 0, wins :0 , points:0 },
+'Venkat':{ name : 'Venkat', matchesPlayed : 0, wins :0 , points:0 },
+'Vicky':{ name : 'Vicky', matchesPlayed : 0, wins :0 , points:0 },
+'Karthi':{ name : 'Karthi', matchesPlayed : 0, wins :0 , points:0 }};
 
 tabsContainer.addEventListener('click',(event)=>{
     tabs.forEach(tab=> tab.classList.remove('active'));
@@ -31,47 +37,35 @@ tabsContainer.addEventListener('click',(event)=>{
         printIndiPoints(indiPoints);
     }
     if(event.target.dataset.id == 2){
-        printMatches(matches);
+        printMatches(matches, matchResults);
+    }
+    if(event.target.dataset.id == 3){
+        printTeamPoints(teamsReport);
     }
 })
 
+mainContent.addEventListener('click',(event)=>{
+    // console.log(event.target.classList)
+    if(event.target.nodeName=="BUTTON" && event.target.classList.contains('match-id-'+currentMatch)){
+        // updateResults(currentMatch,event.target.previousElementSibling.innerHTML,event.target.value, matchResults);
+        updateIndiPoints(event.target.previousElementSibling.innerHTML,event.target.value, indiPoints);
+        colorCodeMatch(event.target.parentElement,event.target.classList, matchResults, currentMatch);
+        currentMatch++;
+        matchResults = matchResults;
+        console.log(matchResults);
+    }
+    else{
+        return;
+    }
+})
+
+// winButtons.addEventListener('click',(event)=>{
+//     console.log(event.target);
+// })
 
 
-function printMatches(matches){
-    let matchesHTML = ""
-    matches.map(match=>{
-        let team1 = match.split(' ')[0];
-        let team2 = match.split(' ')[2];
-        matchesHTML += 
-    `<div class="match">
-        <div class="team1">
-            <p>${team1}</p>
-            <button>Win</button>
-        </div>
-        <p>VS</p>
-        <div class="team2">
-            <p>${team2}</p>
-            <button>Win</button>
-        </div>
-    </div>`;
-    })
-    mainContent.innerHTML =matchesHTML;  
-}
 
-function printIndiPoints(indiPoints){
-    let playersHTML =""
-    mainContent.innerHTML = `<div class="sub-header"><h3>Name</h3><h3>Matches Played</h3><h3>Points</h3><h3>Wins</h3></div>`
-    indiPoints.map(player=>{
-        let playerHTML = `<div class="player">
-        <p class="name">${player.name}</p>
-        <p class="matches-played">${player.matchesPlayed}</p>
-        <p class="points">${player.points}</p>
-        <p class="wins">${player.wins}</p>
-    </div>`
-    playersHTML += playerHTML;
-    })
-    mainContent.innerHTML += playersHTML;
-}
+
 
 
 

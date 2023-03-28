@@ -1,0 +1,23 @@
+{
+  "name": "tornament-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hariprakash20/Tornament-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hariprakash20/Tornament-app/issues"
+  },
+  "homepage": "https://github.com/hariprakash20/Tornament-app#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}

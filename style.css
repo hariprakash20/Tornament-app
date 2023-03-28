@@ -14,12 +14,14 @@ ul{
     align-content: center;
     padding-left: 0 ;
     border-bottom: 2px solid gray;
+    cursor: pointer;
 }
 li{
     list-style-type: none;
     display: inline;
     padding: 1rem;
     vertical-align: middle;
+    cursor: pointer;
 }
 .active{
     position: relative;
@@ -38,12 +40,34 @@ li{
     display: flex;
     justify-content: space-evenly;
     border: 1px solid black;
+    align-items: center;
+    padding: .5rem;
 }
 .sub-header{
     display: flex;
     justify-content: space-between;
 }
 .player{
+    display: flex;
+    justify-content: space-between;
+}
+.team{
+    flex-grow: 1;
+}
+p{
+    text-align: center;
+}
+button{
+    width: 40%;
+    margin-left:30% ;
+}
+.winners{
+    background-color: green;
+}
+.losers{
+    background-color: red;
+}
+.team-points{
     display: flex;
     justify-content: space-between;
 }
