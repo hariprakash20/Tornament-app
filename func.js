@@ -32,11 +32,6 @@ function printMatches(matches, matchResults){
     matchId++;
     })
     mainContent.innerHTML =matchesHTML; 
-    colorCodeMatches(); 
-}
-
-function colorCodeMatches(){
-    
 }
 
 function printIndiPoints(indiPoints){
@@ -53,9 +48,6 @@ function printIndiPoints(indiPoints){
     })
     mainContent.innerHTML += playersHTML;
 }
-
-
-
 
 function updateIndiPoints(winners,losers, indiPoints){
     winners.split('-').map(winner => {
@@ -82,7 +74,6 @@ function printTeamPoints(teamsReport){
     let teamsHTML =""
     mainContent.innerHTML = `<div class="sub-header"><h3>Team</h3><h3>Matches Played</h3><h3>Lost</h3><h3>Won</h3></div>`
     Object.entries(teamsReport).map(team=>{
-        console.log(team);
         let teamHTML = `<div class="team-points">
         <p class="team-name">${team[0]}</p>
         <p class="matches-played">${team[1].matchesPlayed}</p>
@@ -94,6 +85,11 @@ function printTeamPoints(teamsReport){
     mainContent.innerHTML += teamsHTML;
 }
 
-module.exports = {suffleArray, printMatches, printIndiPoints, updateIndiPoints,colorCodeMatch, printTeamPoints};
+function updateTeamPoints(winners, losers, teamsReport){
+teamsReport[winners].matchesPlayed += 1;
+teamsReport[winners].won += 1;
+teamsReport[losers].matchesPlayed +=1;
+teamsReport[losers].lost += 1;
+}
 
-
+module.exports = {suffleArray, printMatches, printIndiPoints, updateIndiPoints,colorCodeMatch, printTeamPoints, updateTeamPoints};

@@ -2,7 +2,7 @@
 
 import unsuffledMatches from './matches.json' assert {type: 'json' };
 
-const {suffleArray, printMatches, printIndiPoints, updateIndiPoints, colorCodeMatch, printTeamPoints} = require('./func');
+const {suffleArray, printMatches, printIndiPoints, updateIndiPoints, colorCodeMatch, printTeamPoints, updateTeamPoints} = require('./func');
 
 let matches = suffleArray(Object.values(unsuffledMatches));
 let tabs = document.querySelectorAll('.tab');
@@ -19,7 +19,7 @@ let teamsReport = {
 'Hari-Karthi': {matchesPlayed : 0, lost: 0, won : 0 },
 'Krishna-Venkat':{matchesPlayed : 0, lost: 0, won : 0 },
 'Krishna-Vicky':{matchesPlayed : 0, lost: 0, won : 0 },
-'Krishna-karthi':{matchesPlayed : 0, lost: 0, won : 0 },
+'Krishna-Karthi':{matchesPlayed : 0, lost: 0, won : 0 },
 'Venkat-Vicky':{matchesPlayed : 0, lost: 0, won : 0 },
 'Venkat-Karthi':{matchesPlayed : 0, lost: 0, won : 0 },
 'Vicky-Karthi':{matchesPlayed : 0, lost: 0, won : 0 }};
@@ -45,24 +45,16 @@ tabsContainer.addEventListener('click',(event)=>{
 })
 
 mainContent.addEventListener('click',(event)=>{
-    // console.log(event.target.classList)
     if(event.target.nodeName=="BUTTON" && event.target.classList.contains('match-id-'+currentMatch)){
-        // updateResults(currentMatch,event.target.previousElementSibling.innerHTML,event.target.value, matchResults);
         updateIndiPoints(event.target.previousElementSibling.innerHTML,event.target.value, indiPoints);
         colorCodeMatch(event.target.parentElement,event.target.classList, matchResults, currentMatch);
+        updateTeamPoints(event.target.previousElementSibling.innerHTML,event.target.value, teamsReport)
         currentMatch++;
-        matchResults = matchResults;
-        console.log(matchResults);
     }
     else{
         return;
     }
 })
-
-// winButtons.addEventListener('click',(event)=>{
-//     console.log(event.target);
-// })
-
 
 
 
